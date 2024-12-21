@@ -1,5 +1,7 @@
 .code16
 .global _start
+#check if a20 line is enabled: If it is enabled, jump to second stage 
+#If it is disabled, enable it and jump onto the second stage.
 _start:
     mov $0x00, %si
     mov $0x0e, %ah
@@ -9,9 +11,10 @@ print:
     je done
     int $0x10
     inc %si
-    jmp print
+    jmp check_a20
 
-done:
+check_a20:
+    
     jmp . 
 
 
